@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>OffGrid AVL — Punk Zine</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=IBM+Plex+Mono:wght@300;400;700&display=swap');
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: 'IBM Plex Mono', monospace; background: #f0ebe0; color: #1a0d00; min-height: 100vh; }
+nav { background: #1a0d00; padding: 1rem 2rem; display: flex; align-items: center; justify-content: space-between; }
+.logo { font-family: 'Bebas Neue', sans-serif; font-size: 1.5rem; color: #f0ebe0; letter-spacing: 0.1em; }
+.logo span { color: #e8c42a; }
+.nav-links { display: flex; gap: 2rem; font-size: 10px; color: #8a7060; letter-spacing: 0.1em; }
+.nav-pill { background: #e8c42a; color: #1a0d00; font-size: 10px; font-weight: 700; padding: 0.4rem 1rem; letter-spacing: 0.05em; cursor: pointer; border: none; font-family: 'IBM Plex Mono', monospace; }
+.hero { display: grid; grid-template-columns: 1.3fr 1fr; }
+.hero-left { background: #f0ebe0; padding: 3rem 2rem; position: relative; overflow: hidden; }
+.hero-grid { position: absolute; inset: 0; background-image: repeating-linear-gradient(0deg, transparent, transparent 39px, #ddd5c0 39px, #ddd5c0 40px), repeating-linear-gradient(90deg, transparent, transparent 39px, #ddd5c0 39px, #ddd5c0 40px); opacity: 0.5; }
+.hero-content { position: relative; z-index: 2; }
+.stamp { display: inline-block; border: 3px solid #e8340a; color: #e8340a; font-size: 10px; font-weight: 700; letter-spacing: 0.2em; padding: 0.3rem 0.8rem; transform: rotate(-2deg); margin-bottom: 2rem; text-transform: uppercase; }
+.big-h1 { font-family: 'Bebas Neue', sans-serif; font-size: 6rem; line-height: 0.9; color: #1a0d00; letter-spacing: 0.02em; }
+.h1-line2 { font-family: 'Bebas Neue', sans-serif; font-size: 3.5rem; line-height: 1; color: #e8c42a; letter-spacing: 0.05em; margin-bottom: 1.5rem; background: #1a0d00; display: inline-block; padding: 0 0.3rem; }
+.sub { font-size: 10px; line-height: 1.9; color: #5a4030; max-width: 380px; margin-bottom: 2rem; }
+.btns { display: flex; gap: 0.75rem; flex-wrap: wrap; }
+.btn-a { background: #e8340a; color: #f0ebe0; font-size: 10px; font-weight: 700; padding: 0.7rem 1.5rem; letter-spacing: 0.1em; text-transform: uppercase; border: none; cursor: pointer; font-family: 'IBM Plex Mono', monospace; }
+.btn-b { background: transparent; color: #1a0d00; font-size: 10px; font-weight: 700; padding: 0.7rem 1.5rem; letter-spacing: 0.1em; text-transform: uppercase; border: 2px solid #1a0d00; cursor: pointer; font-family: 'IBM Plex Mono', monospace; }
+.hero-right { background: #1a0d00; display: flex; flex-direction: column; }
+.photo-panel { flex: 1; position: relative; overflow: hidden; min-height: 240px; }
+.photo-bg { position: absolute; inset: 0; background: radial-gradient(ellipse at 70% 30%, #2d4e1a 0%, #0d1f08 50%, #050a03 100%); }
+.photo-sun { position: absolute; top: 25%; right: 25%; width: 80px; height: 80px; background: radial-gradient(circle, #f5d76e 0%, #e8a82a 50%, transparent 70%); border-radius: 50%; }
+.photo-panels { position: absolute; bottom: 0; left: 0; right: 0; height: 40%; display: grid; grid-template-columns: repeat(8, 1fr); gap: 2px; padding: 2px; }
+.pp { background: #1a2d40; border: 0.5px solid #2a4060; }
+.data-strip { background: #e8c42a; padding: 1rem 1.5rem; display: grid; grid-template-columns: repeat(2, 1fr); gap: 0.5rem; }
+.ds-val { font-family: 'Bebas Neue', sans-serif; font-size: 1.8rem; color: #1a0d00; line-height: 1; }
+.ds-label { font-size: 8px; letter-spacing: 0.15em; color: #5a4010; text-transform: uppercase; }
+.manifesto-bar { background: #e8340a; padding: 1.5rem 2rem; }
+.mfst-label { font-size: 9px; letter-spacing: 0.3em; color: #ffd0c8; text-transform: uppercase; margin-bottom: 0.75rem; }
+.mfst-text { font-size: 11px; line-height: 1.7; color: #fff0ed; font-weight: 300; }
+.services { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; border-top: 3px solid #1a0d00; }
+.svc { padding: 2rem 1.5rem; border-right: 2px solid #1a0d00; }
+.svc:last-child { border-right: none; }
+.svc-num { font-family: 'Bebas Neue', sans-serif; font-size: 3rem; color: #ddd5c0; line-height: 1; margin-bottom: 0.5rem; }
+.svc-name { font-family: 'Bebas Neue', sans-serif; font-size: 1rem; color: #1a0d00; letter-spacing: 0.05em; margin-bottom: 0.75rem; }
+.svc-desc { font-size: 9px; line-height: 1.8; color: #6a5040; }
+.svc-tag { display: inline-block; background: #1a0d00; color: #e8c42a; font-size: 8px; letter-spacing: 0.15em; padding: 0.25rem 0.5rem; text-transform: uppercase; margin-top: 0.75rem; }
+footer { background: #1a0d00; padding: 1.25rem 2rem; display: flex; justify-content: space-between; align-items: center; }
+.footer-logo { font-family: 'Bebas Neue', sans-serif; font-size: 1.1rem; color: #f0ebe0; letter-spacing: 0.1em; }
+.footer-text { font-size: 9px; color: #6a5040; letter-spacing: 0.15em; text-transform: uppercase; }
+</style>
+</head>
+<body>
+<nav>
+  <div class="logo">OFF<span>GRID</span>AVL</div>
+  <div class="nav-links"><span>Systems</span><span>Installs</span><span>Co-ops</span><span>Manifesto</span></div>
+  <button class="nav-pill">Get Off Grid</button>
+</nav>
+<section class="hero">
+  <div class="hero-left">
+    <div class="hero-grid"></div>
+    <div class="hero-content">
+      <div class="stamp">◆ Asheville NC ◆ Est. 2021</div>
+      <div class="big-h1">QUIT<br>THE</div>
+      <div class="h1-line2">GRID.</div>
+      <p class="sub">Solar + battery systems so good you'll forget Duke Energy exists. Built by mountain people for mountain terrain. Zero corporate bullshit. Actual science.</p>
+      <div class="btns">
+        <button class="btn-a">◆ Design My System</button>
+        <button class="btn-b">Field Docs →</button>
+      </div>
+    </div>
+  </div>
+  <div class="hero-right">
+    <div class="photo-panel">
+      <div class="photo-bg"></div>
+      <div class="photo-sun"></div>
+      <div class="photo-panels">
+        <div class="pp"></div><div class="pp"></div><div class="pp"></div><div class="pp"></div>
+        <div class="pp"></div><div class="pp"></div><div class="pp"></div><div class="pp"></div>
+        <div class="pp"></div><div class="pp"></div><div class="pp"></div><div class="pp"></div>
+        <div class="pp"></div><div class="pp"></div><div class="pp"></div><div class="pp"></div>
+      </div>
+    </div>
+    <div class="data-strip">
+      <div><div class="ds-val">1.4k+</div><div class="ds-label">Homes Off-Grid</div></div>
+      <div><div class="ds-val">11MW</div><div class="ds-label">Total Capacity</div></div>
+      <div><div class="ds-val">$0</div><div class="ds-label">Utility Bills</div></div>
+      <div><div class="ds-val">12yr</div><div class="ds-label">Avg. Payback</div></div>
+    </div>
+    <div class="manifesto-bar">
+      <div class="mfst-label">◆ The Mission</div>
+      <div class="mfst-text">Energy independence isn't a lifestyle choice — it's infrastructure resistance. We build the physical backbone of a post-utility Appalachia.</div>
+    </div>
+  </div>
+</section>
+<section class="services">
+  <div class="svc"><div class="svc-num">01</div><div class="svc-name">Solar Arrays</div><div class="svc-desc">Terrain-mapped PV systems for ridge, valley, and everything between. We go where most installers won't.</div><div class="svc-tag">Residential + Farm</div></div>
+  <div class="svc"><div class="svc-num">02</div><div class="svc-name">Battery Systems</div><div class="svc-desc">LiFePO4 whole-home backup. 3–10 day capacity. Outlast any storm, outage, or grid emergency.</div><div class="svc-tag">72hr Standard</div></div>
+  <div class="svc"><div class="svc-num">03</div><div class="svc-name">Micro-Grids</div><div class="svc-desc">Neighborhood cooperative energy networks. Peer-to-peer power sharing without a utility middleman.</div><div class="svc-tag">Cooperative Model</div></div>
+  <div class="svc"><div class="svc-num">04</div><div class="svc-name">Living Buildings</div><div class="svc-desc">Passive solar + thermal mass + greywater + composting. Net-positive structures that give back more than they take.</div><div class="svc-tag">New Construction</div></div>
+</section>
+<footer>
+  <div class="footer-logo">OffGrid AVL · Asheville, NC</div>
+  <div class="footer-text">NABCEP Certified · Worker-Owned · No VCs · No Greenwashing</div>
+  <div class="footer-text">power@offgridavl.com</div>
+</footer>
+  <script src="assets/enhance.js"></script>
+</body>
+</html>

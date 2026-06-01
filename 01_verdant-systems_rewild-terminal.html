@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>VERDANT SYSTEMS — Rewild Terminal</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Space+Mono:wght@400;700&display=swap');
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: 'Space Mono', monospace; background: #0a1a0e; color: #c8e6c0; min-height: 100vh; overflow-x: hidden; }
+nav { display: flex; align-items: center; justify-content: space-between; padding: 1.25rem 2rem; border-bottom: 1px solid #1e3a1e; }
+.logo { font-size: 11px; letter-spacing: 0.3em; color: #5dc47a; text-transform: uppercase; }
+.nav-links { display: flex; gap: 2rem; font-size: 10px; letter-spacing: 0.2em; color: #6a8a6a; text-transform: uppercase; }
+.nav-cta { font-size: 10px; letter-spacing: 0.2em; background: #1e4d2a; color: #5dc47a; padding: 0.5rem 1.2rem; border: 1px solid #2d6b39; text-transform: uppercase; cursor: pointer; }
+.ticker { background: #1a2e1a; padding: 0.6rem 0; font-size: 9px; letter-spacing: 0.3em; color: #3d5a3d; overflow: hidden; white-space: nowrap; }
+.ticker-inner { display: inline-block; animation: ticker 25s linear infinite; }
+@keyframes ticker { from { transform: translateX(100vw); } to { transform: translateX(-100%); } }
+.hero { padding: 5rem 2rem 3rem; display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: center; max-width: 1200px; margin: 0 auto; }
+.tag { font-size: 9px; letter-spacing: 0.4em; color: #5dc47a; text-transform: uppercase; margin-bottom: 1.5rem; border-left: 2px solid #5dc47a; padding-left: 0.75rem; }
+h1 { font-family: 'DM Serif Display', serif; font-size: 3.8rem; line-height: 1.05; color: #e8f5e0; margin-bottom: 1.5rem; font-style: italic; }
+h1 span { color: #5dc47a; }
+.sub { font-size: 11px; line-height: 1.8; color: #6a9a6a; max-width: 380px; margin-bottom: 2.5rem; }
+.btns { display: flex; gap: 1rem; flex-wrap: wrap; }
+.btn-pri { background: #5dc47a; color: #0a1a0e; font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; padding: 0.75rem 1.8rem; border: none; cursor: pointer; font-family: 'Space Mono', monospace; font-weight: 700; }
+.btn-sec { background: transparent; color: #5dc47a; font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; padding: 0.75rem 1.8rem; border: 1px solid #2d6b39; cursor: pointer; font-family: 'Space Mono', monospace; }
+.visual { position: relative; height: 380px; display: flex; align-items: center; justify-content: center; }
+.circle-outer { width: 100%; height: 100%; border: 1px solid #1e3a1e; border-radius: 50%; display: flex; align-items: center; justify-content: center; }
+.circle-mid { width: 78%; height: 78%; border: 1px solid #2d4a2d; border-radius: 50%; display: flex; align-items: center; justify-content: center; position: relative; }
+.circle-inner { width: 78%; height: 78%; background: radial-gradient(circle, #1e3d1e 0%, #0d2210 100%); border-radius: 50%; display: flex; align-items: center; justify-content: center; border: 1px solid #3d7040; }
+.sun { width: 80px; height: 80px; background: #f5c842; border-radius: 50%; position: relative; }
+.ray { position: absolute; width: 2px; height: 16px; background: #f5c842; left: 50%; top: -20px; transform-origin: 50% 60px; }
+.stat { position: absolute; font-size: 9px; letter-spacing: 0.1em; color: #4a7a4a; }
+.stat-1 { top: 15%; left: 5%; }
+.stat-2 { bottom: 20%; right: 5%; }
+.stat-3 { top: 55%; left: -5%; }
+.stat-num { font-size: 22px; font-family: 'DM Serif Display', serif; color: #5dc47a; display: block; }
+.services { border-top: 1px solid #1a2e1a; display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5px; background: #1a2e1a; }
+.svc { background: #0d1f0f; padding: 2rem 1.5rem; }
+.svc-num { font-size: 9px; color: #2d5a2d; letter-spacing: 0.3em; margin-bottom: 1rem; }
+.svc-title { font-family: 'DM Serif Display', serif; font-size: 1.3rem; color: #c8e6c0; margin-bottom: 0.75rem; font-style: italic; }
+.svc-text { font-size: 9px; line-height: 1.8; color: #4a6a4a; }
+.footer-bar { padding: 1.5rem 2rem; display: flex; justify-content: space-between; align-items: center; border-top: 1px solid #1a2e1a; font-size: 9px; color: #2d4a2d; letter-spacing: 0.2em; }
+</style>
+</head>
+<body>
+<nav>
+  <div class="logo">⬡ VERDANT SYSTEMS</div>
+  <div class="nav-links">
+    <span>Solutions</span><span>Technology</span><span>Community</span><span>Research</span>
+  </div>
+  <div class="nav-cta">Free Assessment</div>
+</nav>
+<div class="ticker">
+  <span class="ticker-inner">⬡ ASHEVILLE NC &nbsp;&nbsp;&nbsp; SOLAR MICROGRID SPECIALISTS &nbsp;&nbsp;&nbsp; ⬡ LIVING SYSTEMS DESIGN &nbsp;&nbsp;&nbsp; OFF-GRID ARCHITECTURE &nbsp;&nbsp;&nbsp; ⬡ EST. BLUE RIDGE 2024 &nbsp;&nbsp;&nbsp; COMMUNITY ENERGY COOPERATIVE &nbsp;&nbsp;&nbsp; ⬡ NOT YOUR UTILITY'S SOLAR COMPANY &nbsp;&nbsp;&nbsp;</span>
+</div>
+<section class="hero">
+  <div>
+    <div class="tag">Blue Ridge Solar Collective</div>
+    <h1>Energy that<br><span>rewildens</span><br>your grid.</h1>
+    <p class="sub">We don't sell panels. We architect living energy ecosystems — solar microgrids, battery swarms, and biomass loops built for Western NC terrain, culture, and community.</p>
+    <div class="btns">
+      <button class="btn-pri">Map Your System</button>
+      <button class="btn-sec">See Field Work →</button>
+    </div>
+  </div>
+  <div class="visual">
+    <div class="circle-outer">
+      <div class="circle-mid">
+        <div class="circle-inner">
+          <div class="sun">
+            <div class="ray" style="transform:rotate(0deg)"></div>
+            <div class="ray" style="transform:rotate(45deg)"></div>
+            <div class="ray" style="transform:rotate(90deg)"></div>
+            <div class="ray" style="transform:rotate(135deg)"></div>
+            <div class="ray" style="transform:rotate(180deg)"></div>
+            <div class="ray" style="transform:rotate(225deg)"></div>
+            <div class="ray" style="transform:rotate(270deg)"></div>
+            <div class="ray" style="transform:rotate(315deg)"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="stat stat-1"><span class="stat-num">847</span>homes powered</div>
+    <div class="stat stat-2"><span class="stat-num">94%</span>off-grid rate</div>
+    <div class="stat stat-3"><span class="stat-num">12yr</span>avg. payback</div>
+  </div>
+</section>
+<section class="services">
+  <div class="svc">
+    <div class="svc-num">01 / GENERATION</div>
+    <div class="svc-title">Solar + Storage Arrays</div>
+    <div class="svc-text">Terrain-mapped photovoltaic systems designed for mountain shade patterns, ridge currents, and Appalachian weather cycles.</div>
+  </div>
+  <div class="svc">
+    <div class="svc-num">02 / ARCHITECTURE</div>
+    <div class="svc-title">Living Building Systems</div>
+    <div class="svc-text">Passive solar design, greywater loops, and thermally massive structures that work with the mountain climate, not against it.</div>
+  </div>
+  <div class="svc">
+    <div class="svc-num">03 / COMMUNITY</div>
+    <div class="svc-title">Microgrid Co-ops</div>
+    <div class="svc-text">Neighbor-owned energy cooperatives. Shared battery infrastructure. Collective independence from Duke Energy's stranglehold.</div>
+  </div>
+</section>
+<div class="footer-bar">
+  <span>ASHEVILLE, NC · 28801</span>
+  <span>© 2026 VERDANT SYSTEMS LLC</span>
+  <span>423 · BLUE RIDGE · GRID</span>
+</div>
+  <script src="assets/enhance.js"></script>
+</body>
+</html>

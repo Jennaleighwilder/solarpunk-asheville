@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HELIOTROPE — Asheville Solarpunk Systems</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;700&family=Syne:wght@400;700;800&display=swap');
+        
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        :root {
+            --solar: #ff6b35;
+            --moss: #2d5016;
+            --void: #0a0a0a;
+            --bone: #e8e6e1;
+            --glitch: #00ff9d;
+        }
+        
+        body {
+            background: var(--void);
+            color: var(--bone);
+            font-family: 'Space Grotesk', sans-serif;
+            overflow-x: hidden;
+        }
+        
+        .hero {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            background: 
+                radial-gradient(circle at 20% 50%, rgba(45,80,22,0.4) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(255,107,53,0.2) 0%, transparent 50%),
+                var(--void);
+        }
+        
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: repeating-linear-gradient(
+                0deg,
+                transparent,
+                transparent 2px,
+                rgba(0,255,157,0.03) 2px,
+                rgba(0,255,157,0.03) 4px
+            );
+            pointer-events: none;
+        }
+        
+        .hero h1 {
+            font-family: 'Syne', sans-serif;
+            font-size: clamp(4rem, 12vw, 10rem);
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: -0.04em;
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            line-height: 0.9;
+        }
+        
+        .hero h1 .glitch {
+            color: var(--glitch);
+            position: relative;
+            animation: glitch 3s infinite;
+        }
+        
+        @keyframes glitch {
+            0%, 90%, 100% { transform: translate(0); }
+            92% { transform: translate(-2px, 2px); }
+            94% { transform: translate(2px, -2px); }
+            96% { transform: translate(-1px, -1px); }
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            margin-top: 2rem;
+            opacity: 0.7;
+            max-width: 600px;
+            text-align: center;
+            letter-spacing: 0.05em;
+        }
+        
+        .hero .tagline {
+            position: absolute;
+            bottom: 3rem;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.3em;
+            opacity: 0.5;
+            border: 1px solid rgba(255,255,255,0.2);
+            padding: 1rem 2rem;
+            transform: rotate(-2deg);
+        }
+        
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 100;
+            mix-blend-mode: difference;
+        }
+        
+        nav .logo {
+            font-family: 'Syne', sans-serif;
+            font-weight: 800;
+            font-size: 1.5rem;
+            letter-spacing: -0.02em;
+        }
+        
+        nav ul {
+            display: flex;
+            gap: 3rem;
+            list-style: none;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+        
+        nav a {
+            color: var(--bone);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        nav a:hover { color: var(--glitch); }
+        
+        section {
+            padding: 8rem 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        
+        .manifesto {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+        
+        .manifesto h2 {
+            font-family: 'Syne', sans-serif;
+            font-size: 3rem;
+            font-weight: 700;
+            line-height: 1.1;
+            margin-bottom: 2rem;
+        }
+        
+        .manifesto .highlight { color: var(--solar); }
+        
+        .manifesto p {
+            font-size: 1.1rem;
+            line-height: 1.6;
+            opacity: 0.8;
+            margin-bottom: 1.5rem;
+        }
+        
+        .visual-box {
+            background: linear-gradient(135deg, var(--moss) 0%, var(--void) 100%);
+            height: 500px;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(255,255,255,0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .visual-box::after {
+            content: '◈ SYSTEM BREATHING ◈';
+            font-family: 'Syne', sans-serif;
+            font-size: 1.5rem;
+            color: var(--glitch);
+            opacity: 0.6;
+            animation: pulse 4s ease-in-out infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { opacity: 0.3; transform: scale(1); }
+            50% { opacity: 0.8; transform: scale(1.05); }
+        }
+        
+        .solutions-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            margin-top: 4rem;
+        }
+        
+        .solution-card {
+            border: 1px solid rgba(255,255,255,0.1);
+            padding: 3rem 2rem;
+            transition: all 0.4s;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .solution-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 3px;
+            background: var(--solar);
+            transform: scaleX(0);
+            transition: transform 0.4s;
+        }
+        
+        .solution-card:hover::before { transform: scaleX(1); }
+        .solution-card:hover { border-color: var(--glitch); transform: translateY(-5px); }
+        
+        .solution-card h3 {
+            font-family: 'Syne', sans-serif;
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .solution-card .num {
+            font-size: 0.75rem;
+            opacity: 0.5;
+            margin-bottom: 2rem;
+            display: block;
+        }
+        
+        footer {
+            border-top: 1px solid rgba(255,255,255,0.1);
+            padding: 4rem 2rem;
+            text-align: center;
+            font-size: 0.8rem;
+            opacity: 0.5;
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+        }
+        
+        @media (max-width: 768px) {
+            .manifesto { grid-template-columns: 1fr; }
+            .solutions-grid { grid-template-columns: 1fr; }
+            nav ul { display: none; }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="logo">HELIOTROPE</div>
+        <ul>
+            <li><a href="#">Systems</a></li>
+            <li><a href="#">Theory</a></li>
+            <li><a href="#">Lab</a></li>
+            <li><a href="#">Contact</a></li>
+        </ul>
+    </nav>
+    
+    <div class="hero">
+        <h1>We Grow<br><span class="glitch">The Future</span></h1>
+        <p>Solarpunk infrastructure for a world that refuses to die. Asheville-based. Globally deployed.</p>
+        <div class="tagline">No borders. No bosses. Only biology.</div>
+    </div>
+    
+    <section class="manifesto">
+        <div>
+            <h2>Technology is not <span class="highlight">neutral</span>.<br>We build with intent.</h2>
+            <p>Every system we deploy is a middle finger to the extractive economy. We design living architecture, regenerative grids, and autonomous ecosystems that serve communities, not shareholders.</p>
+            <p>Based in the Blue Ridge Mountains. Operating everywhere the sun touches.</p>
+        </div>
+        <div class="visual-box"></div>
+    </section>
+    
+    <section>
+        <div class="solutions-grid">
+            <div class="solution-card">
+                <span class="num">01 / LIVING ARCHITECTURE</span>
+                <h3>Bio-Integrated Structures</h3>
+                <p>Buildings that breathe, filter, and produce. Mycelium framing, algae facades, and self-healing concrete.</p>
+            </div>
+            <div class="solution-card">
+                <span class="num">02 / ENERGY AUTONOMY</span>
+                <h3>Micro-Grid Systems</h3>
+                <p>Community-owned solar, wind, and kinetic harvesting. No utility company required.</p>
+            </div>
+            <div class="solution-card">
+                <span class="num">03 / FOOD FORESTS</span>
+                <h3>Agroecological Design</h3>
+                <p>Permaculture at scale. Edible landscapes that regenerate soil and feed neighborhoods.</p>
+            </div>
+        </div>
+    </section>
+    
+    <footer>
+        Heliotrope Systems © 2026 — Asheville, NC / Everywhere
+    </footer>
+  <script src="assets/enhance.js"></script>
+</body>
+</html>

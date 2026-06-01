@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VERDANT — Solarpunk Atelier</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;1,6..72,300&family=Space+Mono:wght@400;700&display=swap');
+        
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        :root {
+            --paper: #faf9f6;
+            --ink: #1a1a1a;
+            --terracotta: #b85450;
+            --gold: #c9a227;
+            --stone: #8a8580;
+        }
+        
+        body {
+            background: var(--paper);
+            color: var(--ink);
+            font-family: 'Newsreader', serif;
+            font-weight: 300;
+            line-height: 1.6;
+        }
+        
+        .hero {
+            height: 100vh;
+            position: relative;
+            display: flex;
+            align-items: flex-end;
+            padding: 4rem;
+            overflow: hidden;
+        }
+        
+        .hero-video-placeholder {
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.5)), #1a1a1a;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .hero-rings {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .ring {
+            position: absolute;
+            border-radius: 50%;
+        }
+
+        .ring-1 { width: 500px; height: 500px; border: 0.5px solid rgba(201,162,39,0.3); }
+        .ring-2 { width: 350px; height: 350px; border: 0.5px solid rgba(184,84,80,0.25); }
+        .ring-3 { width: 200px; height: 200px; border: 0.5px solid rgba(138,133,128,0.4); }
+        
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            color: white;
+            max-width: 800px;
+        }
+        
+        .hero-content .label {
+            font-family: 'Space Mono', monospace;
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 0.3em;
+            margin-bottom: 2rem;
+            opacity: 0.8;
+            display: block;
+        }
+        
+        .hero-content h1 {
+            font-size: clamp(3rem, 6vw, 5.5rem);
+            font-weight: 300;
+            line-height: 1.05;
+            margin-bottom: 2rem;
+        }
+        
+        .hero-content h1 em {
+            font-style: italic;
+            color: var(--gold);
+        }
+        
+        .hero-content p {
+            font-size: 1.1rem;
+            max-width: 500px;
+            opacity: 0.9;
+            line-height: 1.7;
+        }
+        
+        .scroll-hint {
+            position: absolute;
+            bottom: 3rem;
+            right: 4rem;
+            color: white;
+            font-family: 'Space Mono', monospace;
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+            writing-mode: vertical-rl;
+            opacity: 0.6;
+        }
+        
+        nav {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            padding: 2rem 4rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 100;
+            mix-blend-mode: difference;
+            color: white;
+        }
+        
+        nav .logo {
+            font-family: 'Space Mono', monospace;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+        }
+        
+        nav ul {
+            display: flex;
+            gap: 3rem;
+            list-style: none;
+            font-family: 'Space Mono', monospace;
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+        }
+        
+        nav a { color: white; text-decoration: none; opacity: 0.8; transition: opacity 0.3s; }
+        nav a:hover { opacity: 1; }
+        
+        section {
+            padding: 10rem 4rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        
+        .editorial {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 6rem;
+            align-items: start;
+        }
+        
+        .editorial .sidebar h2 {
+            font-family: 'Space Mono', monospace;
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+            color: var(--stone);
+            margin-bottom: 2rem;
+        }
+        
+        .editorial .sidebar .issue {
+            font-size: 2rem;
+            font-weight: 300;
+            line-height: 1.2;
+        }
+        
+        .editorial .main { font-size: 1.25rem; line-height: 1.8; }
+        .editorial .main p { margin-bottom: 2rem; text-indent: 2rem; }
+        .editorial .main p:first-child { text-indent: 0; }
+        
+        .editorial .main p:first-child::first-letter {
+            font-size: 4rem;
+            float: left;
+            line-height: 0.8;
+            margin-right: 0.5rem;
+            margin-top: 0.2rem;
+            color: var(--terracotta);
+        }
+        
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            grid-auto-rows: 300px;
+            gap: 1rem;
+            margin: 6rem 0;
+        }
+        
+        .gallery-item {
+            background: var(--ink);
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+        }
+        
+        .gallery-item:nth-child(1) { grid-column: span 7; grid-row: span 2; background: linear-gradient(135deg, #1b3a2f, #1a1a1a); }
+        .gallery-item:nth-child(2) { grid-column: span 5; background: linear-gradient(135deg, #3a2a1a, #1a1a1a); }
+        .gallery-item:nth-child(3) { grid-column: span 5; background: linear-gradient(135deg, #1a1a2f, #1a1a1a); }
+        .gallery-item:nth-child(4) { grid-column: span 4; grid-row: span 2; background: linear-gradient(135deg, #2a1a2a, #1a1a1a); }
+        .gallery-item:nth-child(5) { grid-column: span 4; grid-row: span 2; background: linear-gradient(135deg, #1a2a1a, #1a1a1a); }
+        .gallery-item:nth-child(6) { grid-column: span 4; background: linear-gradient(135deg, #2a1a1a, #1a1a1a); }
+        
+        .gallery-item::after {
+            content: attr(data-caption);
+            position: absolute;
+            bottom: 1.5rem; left: 1.5rem;
+            color: white;
+            font-family: 'Space Mono', monospace;
+            font-size: 0.65rem;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            opacity: 0;
+            transition: opacity 0.4s;
+        }
+        
+        .gallery-item::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(transparent 60%, rgba(0,0,0,0.6));
+            opacity: 0;
+            transition: opacity 0.4s;
+        }
+        
+        .gallery-item:hover::after, .gallery-item:hover::before { opacity: 1; }
+        
+        .quote-block {
+            padding: 8rem 4rem;
+            text-align: center;
+            background: var(--ink);
+            color: var(--paper);
+            margin: 6rem 0;
+        }
+        
+        .quote-block blockquote {
+            font-size: clamp(1.5rem, 3vw, 2.5rem);
+            font-weight: 300;
+            font-style: italic;
+            max-width: 900px;
+            margin: 0 auto;
+            line-height: 1.4;
+        }
+        
+        .quote-block cite {
+            display: block;
+            margin-top: 2rem;
+            font-family: 'Space Mono', monospace;
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+            opacity: 0.6;
+            font-style: normal;
+        }
+        
+        footer {
+            padding: 6rem 4rem;
+            border-top: 1px solid rgba(0,0,0,0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+        }
+        
+        footer .col { max-width: 300px; }
+        
+        footer h4 {
+            font-family: 'Space Mono', monospace;
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+            margin-bottom: 1.5rem;
+            opacity: 0.5;
+        }
+        
+        footer p { font-size: 0.9rem; line-height: 1.7; opacity: 0.8; }
+        
+        @media (max-width: 768px) {
+            .editorial { grid-template-columns: 1fr; }
+            .gallery { grid-template-columns: 1fr; }
+            .gallery-item { grid-column: span 1 !important; grid-row: span 1 !important; }
+            nav { padding: 1.5rem; }
+            section { padding: 6rem 1.5rem; }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="logo">Verdant Atelier</div>
+        <ul>
+            <li><a href="#">Index</a></li>
+            <li><a href="#">Archive</a></li>
+            <li><a href="#">Studio</a></li>
+            <li><a href="#">Contact</a></li>
+        </ul>
+    </nav>
+    
+    <div class="hero">
+        <div class="hero-video-placeholder">
+            <div class="hero-rings">
+                <div class="ring ring-1"></div>
+                <div class="ring ring-2"></div>
+                <div class="ring ring-3"></div>
+            </div>
+        </div>
+        <div class="hero-content">
+            <span class="label">Solarpunk Systems — Vol. 04</span>
+            <h1>We are building<br>the <em>antithesis</em> of<br>extraction</h1>
+            <p>An Asheville-based design practice engineering regenerative infrastructure for communities that refuse to accept the default future.</p>
+        </div>
+        <div class="scroll-hint">Scroll to explore</div>
+    </div>
+    
+    <section class="editorial">
+        <div class="sidebar">
+            <h2>Editorial</h2>
+            <div class="issue">On the necessity of beautiful resistance</div>
+        </div>
+        <div class="main">
+            <p>There is a prevailing assumption that sustainability must be ugly, inconvenient, and ascetic. We reject this entirely. The systems we design are not compromises—they are upgrades. Solar arrays that double as public art. Water towers that function as observation decks. Power grids that strengthen communities instead of exploiting them.</p>
+            <p>Our studio operates from the Blue Ridge Mountains, but our work knows no coordinates. We deploy remotely, consult globally, and build locally. The solarpunk aesthetic is not a veneer we apply to greenwashed products—it is the logical outcome of systems that respect the intelligence of living things.</p>
+            <p>Every project begins with a question: what would this place look like if it were allowed to thrive for ten thousand years? The answer is always more beautiful than the present.</p>
+        </div>
+    </section>
+    
+    <div class="gallery">
+        <div class="gallery-item" data-caption="Solar Canopy — Nashville, TN"></div>
+        <div class="gallery-item" data-caption="Algae Bioreactor"></div>
+        <div class="gallery-item" data-caption="Mycelium Study"></div>
+        <div class="gallery-item" data-caption="Rainwater Cathedral"></div>
+        <div class="gallery-item" data-caption="Community Grid"></div>
+        <div class="gallery-item" data-caption="Asheville Studio"></div>
+    </div>
+    
+    <div class="quote-block">
+        <blockquote>"The most radical thing you can do is build something that outlasts the current paradigm."</blockquote>
+        <cite>— Verdant Design Principles, 2026</cite>
+    </div>
+    
+    <footer>
+        <div class="col">
+            <h4>Location</h4>
+            <p>Asheville, North Carolina<br>Remote operations worldwide<br>Studio visits by appointment</p>
+        </div>
+        <div class="col">
+            <h4>Contact</h4>
+            <p>studio@verdant.systems<br>+1 (828) 555-0147</p>
+        </div>
+    </footer>
+  <script src="assets/enhance.js"></script>
+</body>
+</html>

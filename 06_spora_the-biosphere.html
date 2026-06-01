@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SPORA — Regenerative Systems Lab</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@300;400;500;600&display=swap');
+        
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        :root {
+            --cream: #f5f1eb;
+            --forest: #1b3a2f;
+            --clay: #c4703a;
+            --mist: #d4cec4;
+            --sage: #8faa8f;
+        }
+        
+        body {
+            background: var(--cream);
+            color: var(--forest);
+            font-family: 'Inter', sans-serif;
+            font-weight: 300;
+        }
+        
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+            padding: 2rem;
+        }
+        
+        .hero-bg {
+            position: absolute;
+            top: -50%; left: -50%;
+            width: 200%; height: 200%;
+            background: 
+                radial-gradient(circle at 30% 70%, rgba(143,170,143,0.3) 0%, transparent 40%),
+                radial-gradient(circle at 70% 30%, rgba(196,112,58,0.15) 0%, transparent 40%);
+            animation: drift 20s ease-in-out infinite;
+        }
+        
+        @keyframes drift {
+            0%, 100% { transform: translate(0, 0) rotate(0deg); }
+            33% { transform: translate(2%, 2%) rotate(1deg); }
+            66% { transform: translate(-1%, 1%) rotate(-1deg); }
+        }
+        
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            max-width: 900px;
+        }
+        
+        .hero-content h1 {
+            font-family: 'Instrument Serif', serif;
+            font-size: clamp(3.5rem, 8vw, 7rem);
+            font-weight: 400;
+            line-height: 1.05;
+            margin-bottom: 2rem;
+            color: var(--forest);
+        }
+        
+        .hero-content h1 em {
+            font-style: italic;
+            color: var(--clay);
+        }
+        
+        .hero-content p {
+            font-size: 1.15rem;
+            line-height: 1.7;
+            max-width: 600px;
+            margin: 0 auto 3rem;
+            color: var(--forest);
+            opacity: 0.8;
+        }
+        
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 1rem;
+            border: 1px solid var(--forest);
+            padding: 1rem 2rem;
+            border-radius: 100px;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+        }
+        
+        .hero-badge::before {
+            content: '';
+            width: 8px; height: 8px;
+            background: var(--sage);
+            border-radius: 50%;
+            animation: breathe 3s ease-in-out infinite;
+        }
+        
+        @keyframes breathe {
+            0%, 100% { opacity: 0.4; transform: scale(1); }
+            50% { opacity: 1; transform: scale(1.3); }
+        }
+        
+        nav {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            padding: 2rem 3rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 100;
+            background: rgba(245,241,235,0.8);
+            backdrop-filter: blur(10px);
+        }
+        
+        nav .logo {
+            font-family: 'Instrument Serif', serif;
+            font-size: 1.4rem;
+            font-weight: 400;
+        }
+        
+        nav ul {
+            display: flex;
+            gap: 2.5rem;
+            list-style: none;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+        
+        nav a {
+            color: var(--forest);
+            text-decoration: none;
+            position: relative;
+        }
+        
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: -4px; left: 0;
+            width: 0; height: 1px;
+            background: var(--clay);
+            transition: width 0.3s;
+        }
+        
+        nav a:hover::after { width: 100%; }
+        
+        section {
+            padding: 8rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            margin-bottom: 4rem;
+            padding-bottom: 2rem;
+            border-bottom: 1px solid var(--mist);
+        }
+        
+        .section-header h2 {
+            font-family: 'Instrument Serif', serif;
+            font-size: 2.5rem;
+            font-weight: 400;
+        }
+        
+        .section-header span {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+            opacity: 0.6;
+        }
+        
+        .data-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 3rem;
+        }
+        
+        .data-card {
+            position: relative;
+            padding: 3rem;
+            background: white;
+            border-radius: 2px;
+            overflow: hidden;
+        }
+        
+        .data-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 4px;
+            background: linear-gradient(90deg, var(--sage), var(--clay));
+        }
+        
+        .data-card h3 {
+            font-family: 'Instrument Serif', serif;
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+            font-weight: 400;
+        }
+        
+        .data-card .metric {
+            font-size: 3rem;
+            font-weight: 600;
+            color: var(--clay);
+            margin: 1.5rem 0;
+        }
+        
+        .data-card p {
+            font-size: 0.95rem;
+            line-height: 1.7;
+            opacity: 0.8;
+        }
+        
+        .visual-section {
+            max-width: 100%;
+            padding: 0;
+            margin: 4rem 0;
+            height: 70vh;
+            background: linear-gradient(135deg, var(--forest) 0%, var(--sage) 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .visual-section::before {
+            content: '';
+            position: absolute;
+            width: 300px; height: 300px;
+            border: 1px solid rgba(255,255,255,0.2);
+            border-radius: 50%;
+            animation: expand 8s ease-in-out infinite;
+        }
+        
+        .visual-section::after {
+            content: '';
+            position: absolute;
+            width: 200px; height: 200px;
+            border: 1px solid rgba(255,255,255,0.3);
+            border-radius: 50%;
+            animation: expand 6s ease-in-out infinite reverse;
+        }
+        
+        @keyframes expand {
+            0%, 100% { transform: scale(1); opacity: 0.5; }
+            50% { transform: scale(1.5); opacity: 0.2; }
+        }
+        
+        .visual-text {
+            color: white;
+            font-family: 'Instrument Serif', serif;
+            font-size: 2rem;
+            font-style: italic;
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            padding: 2rem;
+        }
+        
+        footer {
+            background: var(--forest);
+            color: var(--cream);
+            padding: 6rem 2rem;
+            text-align: center;
+        }
+        
+        footer .logo {
+            font-family: 'Instrument Serif', serif;
+            font-size: 2rem;
+            margin-bottom: 2rem;
+        }
+        
+        footer p {
+            opacity: 0.7;
+            font-size: 0.9rem;
+            max-width: 500px;
+            margin: 0 auto;
+            line-height: 1.7;
+        }
+        
+        @media (max-width: 768px) {
+            .data-grid { grid-template-columns: 1fr; }
+            nav ul { display: none; }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="logo">Spora</div>
+        <ul>
+            <li><a href="#">Research</a></li>
+            <li><a href="#">Systems</a></li>
+            <li><a href="#">Journal</a></li>
+            <li><a href="#">Studio</a></li>
+        </ul>
+    </nav>
+    
+    <div class="hero">
+        <div class="hero-bg"></div>
+        <div class="hero-content">
+            <h1>Designing <em>living</em><br>infrastructure</h1>
+            <p>We merge ecological science with spatial design to create systems that regenerate rather than extract. From Asheville to the Amazon, every project is a hypothesis tested against reality.</p>
+            <div class="hero-badge">Systems Online</div>
+        </div>
+    </div>
+    
+    <section>
+        <div class="section-header">
+            <h2>Active Systems</h2>
+            <span>Real-time Data</span>
+        </div>
+        <div class="data-grid">
+            <div class="data-card">
+                <h3>Atmospheric Carbon Capture</h3>
+                <div class="metric">12,847 t</div>
+                <p>Bioreactor arrays in urban corridors converting CO₂ to algal biomass. Operating in 14 cities across 3 continents.</p>
+            </div>
+            <div class="data-card">
+                <h3>Regenerative Water Cycles</h3>
+                <div class="metric">98.2%</div>
+                <p>Closed-loop hydrological systems for off-grid communities. Rain harvesting, bio-filtration, and gravity distribution.</p>
+            </div>
+            <div class="data-card">
+                <h3>Mycelium Structural Networks</h3>
+                <div class="metric">4,200 m²</div>
+                <p>Grown-not-built architecture using fungal substrates. Fire-resistant, carbon-negative, and fully biodegradable.</p>
+            </div>
+            <div class="data-card">
+                <h3>Community Energy Grids</h3>
+                <div class="metric">100%</div>
+                <p>Autonomous micro-grids owned by the communities they serve. No utility middlemen. No profit extraction.</p>
+            </div>
+        </div>
+    </section>
+    
+    <div class="visual-section">
+        <div class="visual-text">"The future is not a place we're going. It's a place we're growing."</div>
+    </div>
+    
+    <footer>
+        <div class="logo">Spora</div>
+        <p>Regenerative Systems Lab<br>Asheville, North Carolina<br>Remote operations worldwide</p>
+    </footer>
+  <script src="assets/enhance.js"></script>
+</body>
+</html>

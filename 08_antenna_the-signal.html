@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ANTENNA — Distributed Ecological Systems</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,700;1,9..40,300&family=JetBrains+Mono:wght@300;400;700&display=swap');
+        
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        :root {
+            --amber: #ffb627;
+            --deep: #0f0e17;
+            --surface: #1a1921;
+            --warm: #ff8c42;
+            --cool: #7ae7c7;
+            --text: #fffffe;
+        }
+        
+        body {
+            background: var(--deep);
+            color: var(--text);
+            font-family: 'DM Sans', sans-serif;
+            font-weight: 300;
+        }
+        
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: repeating-linear-gradient(
+                0deg,
+                transparent,
+                transparent 2px,
+                rgba(255,182,39,0.015) 2px,
+                rgba(255,182,39,0.015) 4px
+            );
+            pointer-events: none;
+            z-index: 9999;
+        }
+        
+        .hero {
+            min-height: 100vh;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero-left {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 4rem;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .hero-left .status {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.65rem;
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+            color: var(--amber);
+            margin-bottom: 3rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+        
+        .hero-left .status::before {
+            content: '';
+            width: 6px; height: 6px;
+            background: var(--cool);
+            border-radius: 50%;
+            animation: blink 2s infinite;
+            flex-shrink: 0;
+        }
+        
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.3; }
+        }
+        
+        .hero-left h1 {
+            font-size: clamp(2.5rem, 5vw, 4.5rem);
+            font-weight: 700;
+            line-height: 1.05;
+            margin-bottom: 2rem;
+            letter-spacing: -0.02em;
+        }
+        
+        .hero-left h1 span {
+            color: var(--amber);
+            font-weight: 300;
+            font-style: italic;
+        }
+        
+        .hero-left p {
+            font-size: 1.05rem;
+            line-height: 1.7;
+            opacity: 0.8;
+            max-width: 450px;
+            margin-bottom: 3rem;
+        }
+        
+        .hero-left .coords {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.7rem;
+            color: var(--amber);
+            opacity: 0.6;
+            letter-spacing: 0.1em;
+        }
+        
+        .hero-right {
+            position: relative;
+            background: var(--surface);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+        
+        .hero-right::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: 
+                radial-gradient(circle at 50% 50%, rgba(255,182,39,0.1) 0%, transparent 70%),
+                repeating-conic-gradient(from 0deg at 50% 50%, transparent 0deg, rgba(255,182,39,0.03) 5deg, transparent 10deg);
+            animation: rotate 60s linear infinite;
+        }
+        
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+        
+        .hero-right .globe-text {
+            position: relative;
+            z-index: 2;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.8rem;
+            text-align: left;
+            color: var(--amber);
+            opacity: 0.8;
+            line-height: 2.2;
+        }
+        
+        nav {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            padding: 1.5rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 100;
+            background: rgba(15,14,23,0.9);
+            backdrop-filter: blur(5px);
+            border-bottom: 1px solid rgba(255,182,39,0.1);
+        }
+        
+        nav .logo {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+            color: var(--amber);
+        }
+        
+        nav ul {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+        
+        nav a { color: var(--text); text-decoration: none; opacity: 0.7; transition: all 0.3s; }
+        nav a:hover { color: var(--amber); opacity: 1; }
+        
+        section {
+            padding: 8rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .section-label {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.65rem;
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+            color: var(--amber);
+            margin-bottom: 2rem;
+            display: block;
+        }
+        
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 3rem;
+            max-width: 700px;
+            line-height: 1.2;
+        }
+        
+        .terminal-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+        }
+        
+        .terminal {
+            background: var(--surface);
+            border: 1px solid rgba(255,182,39,0.15);
+            padding: 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .terminal::before {
+            content: '>';
+            position: absolute;
+            top: 1rem; right: 1rem;
+            font-family: 'JetBrains Mono', monospace;
+            color: var(--amber);
+            opacity: 0.4;
+        }
+        
+        .terminal .term-header {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.6rem;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            color: var(--cool);
+            margin-bottom: 1.5rem;
+            opacity: 0.8;
+        }
+        
+        .terminal h3 { font-size: 1.3rem; font-weight: 700; margin-bottom: 1rem; }
+        .terminal p { font-size: 0.9rem; line-height: 1.6; opacity: 0.7; }
+        
+        .terminal .data-line {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.7rem;
+            margin-top: 1.5rem;
+            color: var(--amber);
+            opacity: 0.6;
+        }
+        
+        .wide-band {
+            background: var(--surface);
+            border-top: 1px solid rgba(255,182,39,0.2);
+            border-bottom: 1px solid rgba(255,182,39,0.2);
+            padding: 2rem 0;
+            margin: 6rem 0;
+            overflow: hidden;
+        }
+        
+        .marquee {
+            display: flex;
+            gap: 4rem;
+            animation: scroll 30s linear infinite;
+            white-space: nowrap;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+            color: var(--amber);
+            opacity: 0.6;
+        }
+        
+        @keyframes scroll {
+            from { transform: translateX(0); }
+            to { transform: translateX(-50%); }
+        }
+        
+        footer {
+            background: var(--surface);
+            padding: 6rem 2rem;
+            text-align: center;
+            border-top: 1px solid rgba(255,182,39,0.1);
+        }
+        
+        footer .logo {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 0.3em;
+            color: var(--amber);
+            margin-bottom: 2rem;
+        }
+        
+        footer .grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 3rem;
+            max-width: 900px;
+            margin: 3rem auto;
+            text-align: left;
+        }
+        
+        footer .grid h4 {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.65rem;
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+            color: var(--amber);
+            margin-bottom: 1rem;
+            opacity: 0.8;
+        }
+        
+        footer .grid p { font-size: 0.85rem; line-height: 1.7; opacity: 0.6; }
+        
+        @media (max-width: 768px) {
+            .hero { grid-template-columns: 1fr; }
+            .hero-right { min-height: 50vh; }
+            .terminal-grid { grid-template-columns: 1fr; }
+            footer .grid { grid-template-columns: 1fr; }
+            nav ul { display: none; }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="logo">Antenna</div>
+        <ul>
+            <li><a href="#">Transmit</a></li>
+            <li><a href="#">Network</a></li>
+            <li><a href="#">Signal</a></li>
+            <li><a href="#">Link</a></li>
+        </ul>
+    </nav>
+    
+    <div class="hero">
+        <div class="hero-left">
+            <div class="status">System Active — Remote Uplink Established</div>
+            <h1>Transmitting <span>regenerative</span> infrastructure across all coordinates</h1>
+            <p>We are a distributed collective of designers, engineers, and ecologists. Headquartered in Asheville. Deployed everywhere. Building the solarpunk reality one node at a time.</p>
+            <div class="coords">35.5951° N, 82.5515° W // ORIGIN NODE</div>
+        </div>
+        <div class="hero-right">
+            <div class="globe-text">
+                [ SIGNAL DISTRIBUTION ]<br>
+                N. AMERICA &nbsp;████████░░ 80%<br>
+                S. AMERICA &nbsp;██████░░░░ 60%<br>
+                EUROPE &nbsp;&nbsp;&nbsp;&nbsp;████████░░ 75%<br>
+                ASIA &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;█████░░░░░ 45%<br>
+                AFRICA &nbsp;&nbsp;&nbsp;&nbsp;████░░░░░░ 40%<br>
+                OCEANIA &nbsp;&nbsp;&nbsp;█████░░░░░ 50%<br>
+                <br>
+                UPLINK: ACTIVE
+            </div>
+        </div>
+    </div>
+    
+    <div class="wide-band">
+        <div class="marquee">
+            Asheville — Nashville — Portland — Berlin — Mexico City — Tokyo — Lagos — São Paulo — Melbourne — Asheville — Nashville — Portland — Berlin — Mexico City — Tokyo — Lagos — São Paulo — Melbourne —
+        </div>
+    </div>
+    
+    <section>
+        <span class="section-label">Active Protocols</span>
+        <h2 class="section-title">We don't consult. We transmit systems.</h2>
+        <div class="terminal-grid">
+            <div class="terminal">
+                <div class="term-header">Protocol_01</div>
+                <h3>Energy Autonomy</h3>
+                <p>Off-grid microgrids for communities rejecting utility monopolies. Solar, wind, and battery storage designed as public infrastructure.</p>
+                <div class="data-line">STATUS: DEPLOYED // NODES: 34</div>
+            </div>
+            <div class="terminal">
+                <div class="term-header">Protocol_02</div>
+                <h3>Water Sovereignty</h3>
+                <p>Rain capture, bio-filtration, and closed-loop distribution. Every drop accounted for. Every system owned by its users.</p>
+                <div class="data-line">STATUS: ACTIVE // NODES: 28</div>
+            </div>
+            <div class="terminal">
+                <div class="term-header">Protocol_03</div>
+                <h3>Food Networks</h3>
+                <p>Urban agroforestry and vertical growing systems. Community-operated, zero-mile supply chains. Biology as logistics.</p>
+                <div class="data-line">STATUS: EXPANDING // NODES: 52</div>
+            </div>
+        </div>
+    </section>
+    
+    <footer>
+        <div class="logo">Antenna</div>
+        <p style="opacity:0.6;font-size:0.9rem;">Distributed Ecological Systems</p>
+        <div class="grid">
+            <div>
+                <h4>Origin</h4>
+                <p>Asheville, North Carolina<br>United States</p>
+            </div>
+            <div>
+                <h4>Frequency</h4>
+                <p>signal@antenna.systems<br>Response: 24-48hrs</p>
+            </div>
+            <div>
+                <h4>Encryption</h4>
+                <p>Open source by default.<br>All systems documented.<br>Nothing proprietary.</p>
+            </div>
+        </div>
+    </footer>
+  <script src="assets/enhance.js"></script>
+</body>
+</html>

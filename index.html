@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Solarpunk Solar Co. — Client Review Gallery (Asheville, NC)</title>
+<style>
+  :root {
+    --bg: #0a0f0c;
+    --panel: #111a14;
+    --line: #1f2e25;
+    --ink: #e8f3ea;
+    --muted: #8aa394;
+    --neon: #5dff9b;
+    --amber: #f5b942;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    background:
+      radial-gradient(1200px 600px at 80% -10%, rgba(93,255,155,0.08), transparent),
+      var(--bg);
+    color: var(--ink);
+    font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    line-height: 1.55;
+    min-height: 100vh;
+  }
+  header.site {
+    padding: 48px 32px 24px;
+    border-bottom: 1px solid var(--line);
+    max-width: 1280px;
+    margin: 0 auto;
+  }
+  .eyebrow {
+    font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    font-size: 12px;
+    color: var(--neon);
+  }
+  h1 {
+    font-size: clamp(32px, 5vw, 56px);
+    line-height: 1.05;
+    margin: 12px 0 14px;
+    letter-spacing: -0.02em;
+  }
+  h1 .accent { color: var(--amber); }
+  .lede { color: var(--muted); max-width: 720px; font-size: 17px; }
+  .howto {
+    margin: 22px 0 4px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+  .pill {
+    font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+    font-size: 12px;
+    color: var(--ink);
+    background: var(--panel);
+    border: 1px solid var(--line);
+    padding: 7px 12px;
+    border-radius: 999px;
+  }
+  .showcase {
+    border-bottom: 1px solid var(--line);
+  }
+  .showcase-inner {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 36px 32px;
+    display: grid;
+    grid-template-columns: 1.3fr 1fr;
+    gap: 32px;
+    align-items: center;
+  }
+  .reel video {
+    width: 100%;
+    border-radius: 16px;
+    border: 1px solid var(--line);
+    display: block;
+    background: #000;
+    aspect-ratio: 16 / 9;
+    object-fit: cover;
+  }
+  .reel-copy h2 { font-size: clamp(24px, 3vw, 34px); margin: 8px 0 10px; letter-spacing: -0.01em; }
+  .thumbs {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+    margin-top: 16px;
+  }
+  .thumbs img {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+    border-radius: 10px;
+    border: 1px solid var(--line);
+  }
+  @media (max-width: 860px) {
+    .showcase-inner { grid-template-columns: 1fr; }
+  }
+  main {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 32px;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+    gap: 28px;
+  }
+  .card {
+    background: var(--panel);
+    border: 1px solid var(--line);
+    border-radius: 16px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    transition: border-color 0.2s ease, transform 0.2s ease;
+  }
+  .card:hover { border-color: var(--neon); transform: translateY(-3px); }
+  .frame-wrap {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16 / 11;
+    overflow: hidden;
+    background: #000;
+    border-bottom: 1px solid var(--line);
+  }
+  /* Render the real live page, scaled down so the whole hero fits like a moving thumbnail */
+  .frame-wrap iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 1280px;
+    height: 880px;
+    border: 0;
+    transform: scale(0.281);
+    transform-origin: top left;
+    pointer-events: none;
+  }
+  .frame-wrap a.open-overlay {
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    display: flex;
+    align-items: flex-end;
+    justify-content: flex-end;
+    padding: 12px;
+    text-decoration: none;
+  }
+  .frame-wrap a.open-overlay .open-btn {
+    background: var(--neon);
+    color: #04150b;
+    font-weight: 700;
+    font-size: 13px;
+    padding: 8px 14px;
+    border-radius: 999px;
+    opacity: 0;
+    transform: translateY(6px);
+    transition: opacity 0.2s ease, transform 0.2s ease;
+  }
+  .card:hover .open-btn { opacity: 1; transform: translateY(0); }
+  .body {
+    padding: 18px 20px 22px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    flex: 1;
+  }
+  .num {
+    font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+    color: var(--muted);
+    font-size: 12px;
+    letter-spacing: 0.2em;
+  }
+  .name { font-size: 22px; font-weight: 700; letter-spacing: -0.01em; }
+  .vibe { color: var(--muted); font-size: 14.5px; flex: 1; }
+  .tags { display: flex; gap: 8px; flex-wrap: wrap; }
+  .tag {
+    font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+    font-size: 11px;
+    padding: 4px 9px;
+    border-radius: 6px;
+    border: 1px solid var(--line);
+    color: var(--muted);
+  }
+  .tag.punk { color: var(--amber); border-color: rgba(245,185,66,0.4); }
+  .tag.planet { color: var(--neon); border-color: rgba(93,255,155,0.4); }
+  .actions { display: flex; gap: 10px; margin-top: 4px; }
+  .btn {
+    text-decoration: none;
+    text-align: center;
+    font-weight: 600;
+    font-size: 14px;
+    padding: 11px 16px;
+    border-radius: 10px;
+    flex: 1;
+  }
+  .btn.primary { background: var(--neon); color: #04150b; }
+  .btn.ghost { border: 1px solid var(--line); color: var(--ink); }
+  .btn:focus-visible, .frame-wrap a:focus-visible { outline: 3px solid var(--amber); outline-offset: 2px; }
+  footer.site {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 24px 32px 64px;
+    color: var(--muted);
+    font-size: 13px;
+    border-top: 1px solid var(--line);
+  }
+  a.skip {
+    position: absolute; left: -999px;
+  }
+  a.skip:focus { left: 16px; top: 16px; background: var(--neon); color:#04150b; padding: 10px 14px; border-radius: 8px; z-index: 99; }
+</style>
+</head>
+<body>
+<a href="#gallery" class="skip">Skip to gallery</a>
+<header class="site">
+  <p class="eyebrow">Asheville, NC · Solarpunk Solar Co. · Client Review</p>
+  <h1>Pick the one. <span class="accent">Punk meets Captain&nbsp;Planet.</span></h1>
+  <p class="lede">Eight live design directions. Each tile is the real, animated page shrunk to a preview — click <strong>Open full</strong> to walk the client through it at full size. When they pick one, we build it out: real copy, ADA / WCAG 2.1 AA accessibility, and full legal pages (Privacy, Terms, Cookies, Accessibility Statement).</p>
+  <div class="howto">
+    <span class="pill">Tip: present on a big screen</span>
+    <span class="pill">Tiles are live — they animate</span>
+    <span class="pill">★ = strongest punk + planet blend</span>
+  </div>
+</header>
+
+<section class="showcase">
+  <div class="showcase-inner">
+    <div class="reel">
+      <video controls autoplay muted loop playsinline poster="assets/img/micro_leaf_chloroplasts.png" aria-label="Microscopy motion reel">
+        <source src="assets/video/biosphere_reel.mp4" type="video/mp4" />
+        Your browser does not support the video tag.
+      </video>
+    </div>
+    <div class="reel-copy">
+      <p class="eyebrow">Motion + Imagery</p>
+      <h2>Living systems, up close.</h2>
+      <p class="lede">Original microscopy art — chloroplasts, mycelial networks, diatoms, and pollen — generated for this brand and wired into the designs. The reel above is a sample of the hero motion. Thumbnails below show the full image set.</p>
+      <div class="thumbs">
+        <img src="assets/img/micro_leaf_chloroplasts.png" alt="Microscopy cross-section of a leaf showing green chloroplasts" loading="lazy" />
+        <img src="assets/img/micro_mycelium_network.png" alt="Glowing branching mycelial network on a dark background" loading="lazy" />
+        <img src="assets/img/micro_diatoms_algae.png" alt="Geometric diatom and algae shells arranged on a dark slide" loading="lazy" />
+        <img src="assets/img/micro_pollen_sem.png" alt="False-colored electron-microscope view of pollen grains" loading="lazy" />
+      </div>
+    </div>
+  </div>
+</section>
+
+<main id="gallery">
+  <!-- Cards injected below -->
+</main>
+
+<footer class="site">
+  All designs © 2026 — client exploration for WRENTECH. Replace placeholder content, colors, names, and contact info before launch.
+  Legal pages are drafted to a strong template standard and must be reviewed by counsel prior to launch.
+</footer>
+
+<script>
+  const sites = [
+    { file: "01_verdant-systems_rewild-terminal.html", num: "01", name: "Verdant Systems", vibe: "Dark forest green, monospace terminal type, orbital sun diagram, scrolling ticker. Techy + earthy.", punk: 2, planet: 3, star: false },
+    { file: "02_solstice-energy_golden-hour.html", num: "02", name: "Solstice Energy Co.", vibe: "Warm amber + cream, elegant Playfair serif, split hero with glowing sun. NatGeo-luxe, premium.", punk: 1, planet: 2, star: false },
+    { file: "03_offgrid-avl_punk-zine.html", num: "03", name: "OffGrid AVL", vibe: "Cream / black / yellow / red, Bebas Neue, grid paper, \u201cQUIT THE GRID.\u201d Loudest and most rebellious.", punk: 3, planet: 1, star: true },
+    { file: "04_rhizogrid_biopunk-lab.html", num: "04", name: "RhizoGrid", vibe: "Clean white, heavy Syne display, lime-green highlighter, hex motifs. Field-research / lab feel.", punk: 2, planet: 2, star: false },
+    { file: "05_heliotrope_the-uprising.html", num: "05", name: "Heliotrope", vibe: "Black background, neon-green glitch, \u201cWE GROW THE FUTURE,\u201d hacker-collective energy.", punk: 3, planet: 3, star: true },
+    { file: "06_spora_the-biosphere.html", num: "06", name: "Spora", vibe: "Cream + clay, organic serif, breathing-dot animation. Calm, scientific, refined.", punk: 1, planet: 3, star: false },
+    { file: "07_verdant-atelier_the-atelier.html", num: "07", name: "Verdant Atelier", vibe: "Editorial gallery, cinematic black hero, gold accents, drop-cap prose. High-fashion studio.", punk: 1, planet: 2, star: false },
+    { file: "08_antenna_the-signal.html", num: "08", name: "Antenna", vibe: "Amber CRT scanlines, \u201cSYSTEM ACTIVE \u2014 REMOTE UPLINK,\u201d signal-readout UI, scrolling marquee.", punk: 2, planet: 2, star: false },
+  ];
+
+  const meter = (n) => "\u25c9".repeat(n) + "\u25cb".repeat(3 - n);
+
+  const main = document.getElementById("gallery");
+  main.innerHTML = sites.map(s => `
+    <article class="card">
+      <div class="frame-wrap">
+        <iframe src="${s.file}" title="${s.name} live preview" loading="lazy" tabindex="-1" aria-hidden="true"></iframe>
+        <a class="open-overlay" href="${s.file}" target="_blank" rel="noopener" aria-label="Open ${s.name} full screen">
+          <span class="open-btn">Open full \u2197</span>
+        </a>
+      </div>
+      <div class="body">
+        <span class="num">${s.num}${s.star ? "  \u2605" : ""}</span>
+        <span class="name">${s.name}</span>
+        <p class="vibe">${s.vibe}</p>
+        <div class="tags">
+          <span class="tag punk">PUNK ${meter(s.punk)}</span>
+          <span class="tag planet">PLANET ${meter(s.planet)}</span>
+        </div>
+        <div class="actions">
+          <a class="btn primary" href="${s.file}" target="_blank" rel="noopener">Open full \u2197</a>
+        </div>
+      </div>
+    </article>
+  `).join("");
+</script>
+</body>
+</html>
